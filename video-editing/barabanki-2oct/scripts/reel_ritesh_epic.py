@@ -91,7 +91,7 @@ def end_card(t0, dur):
         img.alpha_composite(lg, (int(W / 2 - lg.width / 2), int(560 - lg.height / 2)))
         dd = ImageDraw.Draw(img)
         a = int(255 * prog(tl, 0.4, 0.8))
-        dd.text((W / 2, 930), "रितेश त्रिपाठी", font=HF(110), fill=(255, 215, 120, a), anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0, a))
+        dd.text((W / 2, 930), "RITESH TRIPATHI", font=HF(100), fill=(255, 215, 120, a), anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0, a))
         dd.text((W / 2, 1040), "Founder, Wealth Tank", font=M(800, 46), fill=(255, 255, 255, a), anchor="mm")
         dd.text((W / 2, 1100), "Master Facilitator & Financial Planner", font=M(600, 34), fill=(255, 230, 190, a), anchor="mm")
         pb = back(prog(tl, 0.8, 1.2))
@@ -100,7 +100,7 @@ def end_card(t0, dur):
             dd.rounded_rectangle([W / 2 - bw / 2, by, W / 2 + bw / 2, by + bh], int(bh / 2), fill=GOLD + (255,))
             if pb > 0.7: dd.text((W / 2, by + bh / 2), "📞  +91 93051 60843".replace("📞  ", "Call: "), font=M(800, 50 * pb), fill=NAVY, anchor="mm")
         a2 = int(255 * prog(tl, 1.2, 1.6))
-        dd.text((W / 2, 1450), "अगला सेशन आपके शहर में!", font=HF(70), fill=(255, 255, 255, a2), anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0, a2))
+        dd.text((W / 2, 1450), "Next session in your city!", font=HF(70), fill=(255, 255, 255, a2), anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0, a2))
         return img
     return fn
 
@@ -122,17 +122,17 @@ SHOTS = [
     (27.5, 30.0, end_card(27.5, 2.5)),
 ]
 CAPS = [
-    (0.35, 1.6, "हर घर की पुकार है"),
-    (1.9, 3.6, "हर परिवार की ढाल है"),
-    (3.9, 7.35, "सुरक्षा ही तो सबसे बड़ा उपहार है"),
-    (7.5, 9.0, "बाराबंकी का हॉल हो"),
-    (9.3, 10.8, "LIC के चैंपियन हों"),
-    (11.3, 14.05, "जो सीख गया वही आज तैयार है"),
-    (15.3, 16.9, "प्रोडक्ट मत बेचो"),
-    (17.3, 19.35, "ज़रूरत समझाओ"),
-    (19.5, 22.95, "रितेश त्रिपाठी — Founder, Wealth Tank"),
+    (0.35, 1.6, "Every home is calling"),
+    (1.9, 3.6, "Every family needs a shield"),
+    (3.9, 7.35, "Protection is the greatest gift"),
+    (7.5, 9.0, "A packed hall in Barabanki"),
+    (9.3, 10.8, "LIC Champions, all in"),
+    (11.3, 14.05, "Those who learn, lead"),
+    (15.3, 16.9, "Don't sell products"),
+    (17.3, 19.35, "Understand the need"),
+    (19.5, 22.95, "Ritesh Tripathi — Founder, Wealth Tank"),
     (23.1, 25.45, "Master Facilitator & Financial Planner"),
-    (25.6, 27.45, "हर घर सुरक्षा — मिशन जारी है"),
+    (25.6, 27.45, "Har Ghar Suraksha — the mission continues"),
 ]
 CUTS = [s[0] for s in SHOTS[1:]]
 
