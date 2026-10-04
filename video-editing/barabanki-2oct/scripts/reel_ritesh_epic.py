@@ -84,11 +84,11 @@ def end_card(t0, dur):
         tl = t - t0
         img = photo_frame(cv, P("121510"), tl, dur, 1.25, 1.1).filter(ImageFilter.GaussianBlur(8))
         img = warm(img); img.alpha_composite(Image.new("RGBA", (W, H), (20, 8, 0, 160)))
-        p = back(prog(tl, 0, 0.5)); sz = int(430 * max(p, 0.01))
+        p = back(prog(tl, 0, 0.5)); sz = int(520 * max(p, 0.01))
         lg = cv.logo(sz); glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         ImageDraw.Draw(glow).ellipse([W / 2 - 330, 560 - 330, W / 2 + 330, 560 + 330], fill=(255, 170, 40, int(120 * min(1, p))))
         img.alpha_composite(glow.filter(ImageFilter.GaussianBlur(70)))
-        img.alpha_composite(lg, (int(W / 2 - lg.width / 2), int(560 - lg.height / 2)))
+        img.alpha_composite(lg, (int(W / 2 - lg.width / 2), int(540 - lg.height / 2)))
         dd = ImageDraw.Draw(img)
         a = int(255 * prog(tl, 0.4, 0.8))
         dd.text((W / 2, 930), "RITESH TRIPATHI", font=HF(100), fill=(255, 215, 120, a), anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0, a))
@@ -162,10 +162,19 @@ def frame(t):
             img = swirl(img, amt, 1 if ci % 2 else -1) if ci % 3 == 1 else zoomblur(img, amt)
             if abs(dt) < 0.04: img.alpha_composite(Image.new("RGBA", (W, H), (255, 220, 160, 90)))
     img.alpha_composite(VIG); img.alpha_composite(embers(t))
+    if t < 1.63:                                                   # opening logo reveal
+        p = back(prog(t, 0.05, 0.45)); fo = 1 - prog(t, 1.35, 1.6)
+        img.alpha_composite(Image.new("RGBA", (W, H), (10, 4, 0, int(150 * fo))))
+        gl = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(gl).ellipse([W / 2 - 360, 700 - 360, W / 2 + 360, 700 + 360], fill=(255, 170, 40, int(130 * fo * min(1, p))))
+        img.alpha_composite(gl.filter(ImageFilter.GaussianBlur(80)))
+        lg = cv.logo(max(4, int(480 * p))).copy(); lg.putalpha(lg.split()[3].point(lambda v: int(v * fo)))
+        img.alpha_composite(lg, (int(W / 2 - lg.width / 2), int(700 - lg.height / 2)))
     if t < 27.5:
         img.alpha_composite(LOWER)
         for a, b, txt in CAPS: caption(img, t, a, b, txt)
-        lg = cv.logo(120); img.alpha_composite(lg, (W - 150, 70))
+        if t >= 1.6:
+            lg = cv.logo(120); img.alpha_composite(lg, (W - 150, 70))
     if t < 0.25: img.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, int(255 * (1 - t / 0.25)))))
     return img
 
