@@ -56,26 +56,18 @@ def shot(t0, dur, path, z=(1.02, 1.15), c=(0.5, 0.5), fill="crop", rot=1.0):
 
 def logo_card(img, t, t0, t1, big=False):
     if not (t0 <= t < t1): return
-    p = back(prog(t, t0 + 0.05, t0 + 0.45)); fo = 1 - prog(t, t1 - 0.25, t1) if not big else 1
-    img.alpha_composite(Image.new("RGBA", (W, H), (2, 10, 30, int((215 if big else 140) * fo))))
-    cy = 560 if big else 700
-    gl = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(gl).ellipse([W / 2 - 360, cy - 360, W / 2 + 360, cy + 360], fill=(255, 190, 60, int(120 * fo * min(1, p))))
-    img.alpha_composite(gl.filter(ImageFilter.GaussianBlur(80)))
-    lg = cv.logo(max(4, int((520 if big else 460) * p))).copy(); lg.putalpha(lg.split()[3].point(lambda v: int(v * fo)))
-    img.alpha_composite(lg, (int(W / 2 - lg.width / 2), int(cy - lg.height / 2)))
-    if big:
-        tl = t - t0; d = ImageDraw.Draw(img); a = int(255 * prog(tl, 0.4, 0.8))
-        d.text((W / 2, 910), "WEALTH TANK", font=HF(110), fill=(255, 215, 120, a), anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0, a))
-        d.text((W / 2, 1015), "Build your policy with Galaxy Marvel", font=M(700, 40), fill=(255, 255, 255, a), anchor="mm")
-        d.text((W / 2, 1070), "Health Insurance  •  Life  •  Loans", font=M(600, 34), fill=(200, 235, 255, a), anchor="mm")
-        pb = back(prog(tl, 0.8, 1.2))
-        if pb > 0:
-            bw, bh = 820 * pb, 120 * pb; by = 1190
-            d.rounded_rectangle([W / 2 - bw / 2, by, W / 2 + bw / 2, by + bh], int(bh / 2), fill=GOLD + (255,))
-            if pb > 0.7: d.text((W / 2, by + bh / 2), "Call: +91 93051 60843", font=M(800, 50 * pb), fill=NAVY, anchor="mm")
-        a2 = int(255 * prog(tl, 1.2, 1.6))
-        d.text((W / 2, 1410), "Get your family covered today!", font=HF(66), fill=(255, 255, 255, a2), anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0, a2))
+    tl = t - t0
+    img.alpha_composite(Image.new("RGBA", (W, H), (2, 10, 30, 200)))
+    d = ImageDraw.Draw(img)
+    for i, (txt, size, col, ts) in enumerate([("HEALTH INSURANCE", 100, (255, 215, 120), 0.1), ("AWARENESS ACTIVITY", 100, (255, 255, 255), 0.35)]):
+        a = int(255 * prog(tl, ts, ts + 0.4))
+        d.text((W / 2, 720 + i * 135), txt, font=HF(size), fill=col + (a,), anchor="mm", stroke_width=3, stroke_fill=(0, 0, 0, a))
+    a = int(255 * prog(tl, 0.7, 1.1))
+    d.rectangle([W / 2 - 200, 935, W / 2 + 200, 941], fill=GOLD + (a,))
+    d.text((W / 2, 1000), "Janeshwar Mishra Park, Lucknow", font=M(700, 42), fill=(255, 255, 255, a), anchor="mm")
+    a2 = int(255 * prog(tl, 1.1, 1.5))
+    d.text((W / 2, 1140), "Your health is your real wealth", font=HF(70), fill=(255, 255, 255, a2), anchor="mm", stroke_width=2, stroke_fill=(0, 0, 0, a2))
+    d.text((W / 2, 1230), "Get your family covered today!", font=M(700, 40), fill=(200, 235, 255, a2), anchor="mm")
 
 SHOTS = [
     (0.0, 2.0, shot(0.0, 2.0, P(9), fill="blur", z=(1.0, 1.06))),
@@ -93,13 +85,13 @@ SHOTS = [
 ]
 CAPS = [
     (2.2, 3.95, "A morning in Lucknow"),
-    (4.2, 6.45, "Wealth Tank's health awareness drive"),
+    (4.2, 6.45, "Health insurance awareness activity"),
     (6.7, 8.45, "with Galaxy Health Insurance"),
     (8.7, 10.95, "At Janeshwar Mishra Park"),
     (11.2, 13.45, "One family at a time"),
     (13.7, 15.95, "Answering every question"),
     (16.2, 19.95, "Your health is your real wealth"),
-    (20.2, 21.95, "Build your policy with Galaxy Marvel"),
+    (20.2, 21.95, "Know your policy, protect your family"),
     (22.2, 24.4, "Protect your family today"),
 ]
 CUTS = [s_[0] for s_ in SHOTS[1:]]
@@ -120,9 +112,7 @@ def frame(t):
     img.alpha_composite(VIG)
     if t < 24.5:
         img.alpha_composite(LOWER)
-        logo_card(img, t, 0.0, 2.0)
         for a, b, txt in CAPS: caption(img, t, a, b, txt)
-        if t >= 2.0: img.alpha_composite(cv.logo(120), (W - 150, 70))
     else:
         img = img.filter(ImageFilter.GaussianBlur(min(10, (t - 24.5) * 20)))
         logo_card(img, t, 24.5, 30.0, big=True)

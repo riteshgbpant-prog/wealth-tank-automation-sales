@@ -30,7 +30,7 @@ c.paste(Image.new("RGBA", (W, H), (14, 48, 130, 255)), (0, 0), grad)
 d = ImageDraw.Draw(c)
 
 # header
-d.text((W / 2, 40), "HEALTH AWARENESS DRIVE", font=B(92), fill=WHITE, anchor="mt")
+d.text((W / 2, 40), "HEALTH INSURANCE AWARENESS ACTIVITY", font=B(80), fill=WHITE, anchor="mt")
 d.rectangle([W / 2 - 170, 140, W / 2 + 170, 145], fill=GOLD)
 d.text((W / 2, 158), "Janeshwar Mishra Park, Lucknow", font=M(700, 30), fill=GOLD_L, anchor="mt")
 
@@ -47,12 +47,8 @@ hw = (rw - gap - 6) // 2
 place(c, f"{G}/g4.jpg", rx, y2 + th + gap + 6, hw, bh - th - gap - 6, (0.5, 0.5))     # explaining to walkers
 place(c, f"{G}/g3.jpg", rx + hw + gap + 6, y2 + th + gap + 6, rw - hw - gap - 6, bh - th - gap - 6, (0.55, 0.5))  # team at gate
 
-# footer
-logo = Image.open(f"{BB}/logo_real.png").convert("RGBA").resize((118, 118), Image.LANCZOS)
-c.alpha_composite(logo, (m + 4, 1214))
-d.text((m + 140, 1222), "WEALTH TANK", font=M(800, 40), fill=WHITE)
-d.text((m + 142, 1272), "Build your policy with Galaxy Marvel", font=M(600, 26), fill=GOLD_L)
-d.rounded_rectangle([W - m - 330, 1236, W - m, 1310], 37, fill=GOLD)
-d.text((W - m - 165, 1273), "+91 93051 60843", font=M(800, 30), fill=NAVY, anchor="mm")
+# footer (no company branding / phone)
+d.text((W / 2, 1232), "Your health is your real wealth", font=B(64), fill=GOLD_L, anchor="mt")
+d.text((W / 2, 1298), "Spreading health insurance awareness, one family at a time", font=M(600, 26), fill=WHITE, anchor="mt")
 c.convert("RGB").save(OUT, quality=95)
 print("saved", OUT)
