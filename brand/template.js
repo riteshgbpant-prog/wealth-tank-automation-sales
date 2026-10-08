@@ -19,6 +19,20 @@ const I = {
   warn: `<path d="M50 12l40 72H10z"/><path d="M50 40v20M50 70v2"/>`,
   chat: `<path d="M14 20h72v46H44L26 82V66H14z"/><path d="M32 40h36M32 52h22"/>`,
   cross: `<rect x="14" y="14" width="72" height="72" rx="18"/><path d="M50 32v36M32 50h36"/>`,
+  car: `<path d="M12 62V50l10-18h56l10 18v12z"/><path d="M22 50h56"/><circle cx="28" cy="66" r="8"/><circle cx="72" cy="66" r="8"/>`,
+  bike: `<circle cx="22" cy="66" r="14"/><circle cx="78" cy="66" r="14"/><path d="M22 66l18-26h22l16 26M40 40l-6-10h-8M62 40l6-12h10"/>`,
+  truck: `<path d="M8 66V28h52v38M60 40h18l14 16v10H60"/><circle cx="26" cy="70" r="8"/><circle cx="74" cy="70" r="8"/>`,
+  bus: `<rect x="16" y="12" width="68" height="62" rx="10"/><path d="M16 46h68M30 12v34M70 12v34"/><circle cx="30" cy="62" r="4"/><circle cx="70" cy="62" r="4"/><path d="M28 74v10M72 74v10"/>`,
+  fleet: `<rect x="10" y="44" width="34" height="22" rx="4"/><rect x="56" y="44" width="34" height="22" rx="4"/><rect x="33" y="16" width="34" height="22" rx="4"/><path d="M50 38v6M27 44v-4h46v4"/><circle cx="18" cy="72" r="5"/><circle cx="36" cy="72" r="5"/><circle cx="64" cy="72" r="5"/><circle cx="82" cy="72" r="5"/>`,
+  scale: `<path d="M50 14v70M30 84h40M18 30h64"/><path d="M18 30L8 56h20zM82 30L72 56h20z"/>`,
+  plus: `<path d="M50 10l34 12v26c0 22-15 36-34 44C31 84 16 70 16 48V22z"/><path d="M50 34v28M36 48h28"/>`,
+  headset: `<path d="M18 58V48a32 32 0 0 1 64 0v10"/><rect x="12" y="54" width="16" height="24" rx="6"/><rect x="72" y="54" width="16" height="24" rx="6"/><path d="M80 78c0 8-10 12-24 12"/>`,
+  check: `<circle cx="50" cy="50" r="38"/><path d="M32 51l12 12 24-26"/>`,
+  phone: `<path d="M30 12h40a6 6 0 0 1 6 6v64a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6z"/><path d="M44 76h12"/>`,
+  insta: `<rect x="14" y="14" width="72" height="72" rx="20"/><circle cx="50" cy="50" r="17"/><circle cx="72" cy="28" r="3"/>`,
+  linkedin: `<rect x="14" y="14" width="72" height="72" rx="12"/><path d="M32 44v26M32 32v2M46 70V44M46 54c0-6 4-10 10-10s10 4 10 10v16"/>`,
+  fb: `<rect x="14" y="14" width="72" height="72" rx="12"/><path d="M58 86V54h10l2-12H58v-8c0-4 2-6 6-6h6V18h-10c-10 0-14 6-14 14v10h-8v12h8v32"/>`,
+  yt: `<rect x="10" y="22" width="80" height="56" rx="16"/><path d="M42 36v28l22-14z"/>`,
 };
 const icon = (k, size = 120, color = 'var(--gold)') =>
   `<svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
