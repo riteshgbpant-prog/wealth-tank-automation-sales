@@ -6,8 +6,9 @@ const path = require('path');
 const DIR = __dirname;
 const OUT = path.join(DIR, 'out');
 fs.mkdirSync(OUT, { recursive: true });
-const fontCss = fs.readFileSync(path.join(DIR, 'fonts/local.css'), 'utf8')
-  .replace(/url\(([^)]+)\)/g, (_, f) => `url(file://${path.join(DIR, 'fonts', f)})`);
+const F = (fam, w, file) => `@font-face{font-family:'${fam}';font-weight:${w};src:url(file://${path.join(DIR, 'fonts', file)})}`;
+const fontCss = [600, 700, 800, 900].map(w => F('Montserrat', w, `Montserrat-${w}.ttf`)).join('') + F('Montserrat', 500, 'Montserrat-600.ttf') + F('Bebas', 400, 'BebasNeue.ttf');
+const LOGO = 'file://' + path.join(DIR, 'logo.png');
 
 // ---------- icons (stroke line icons) ----------
 const I = {
@@ -25,48 +26,44 @@ const icon = (k, size = 120, color = 'var(--gold)') =>
 
 const logo = (scale = 1) => `
 <div class="logo" style="transform:scale(${scale});transform-origin:left center">
-  <svg width="54" height="54" viewBox="0 0 100 100">
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#E9A800"/></linearGradient></defs>
-    <path d="M50 4l40 14v30c0 26-18 42-40 50C28 90 10 74 10 48V18z" fill="url(#lg)"/>
-    <path d="M27 36l9 32 14-24 14 24 9-32" fill="none" stroke="#0B1433" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
-  </svg>
-  <div><div class="lw">WEALTH TANK</div><div class="ls">Insurance · Loans · Advisory</div></div>
+  <img src="${LOGO}" style="width:86px;height:86px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))">
+  <div><div class="lw">WEALTH TANK</div><div class="ls">Insurance • Loans • Consulting</div></div>
 </div>`;
 
 const base = (w, h, body, extraCss = '') => `<!doctype html><html><head><meta charset="utf-8"><style>
 ${fontCss}
-:root{--navy:#070D24;--navy2:#0E1A45;--gold:#FFC83D;--gold2:#FFE08A;--red:#FF3B4E;--mint:#2BE4A7;--white:#F7F8FC;--muted:#AEB6D6}
+:root{--navy:#030E2C;--navy2:#061E62;--gold:#F0BA28;--gold2:#FFD76E;--red:#FF4757;--mint:#FFD76E;--white:#FFFFFF;--muted:#A9B6DA}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:${w}px;height:${h}px;overflow:hidden}
-body{font-family:'Poppins',sans-serif;color:var(--white);background:var(--navy);position:relative}
+body{font-family:'Montserrat',sans-serif;color:var(--white);background:var(--navy);position:relative}
 .bg{position:absolute;inset:0;background:
-  radial-gradient(900px 700px at 85% -5%, rgba(255,200,61,.22), transparent 60%),
-  radial-gradient(800px 800px at -10% 110%, rgba(64,96,255,.35), transparent 60%),
-  linear-gradient(160deg,#0B1538 0%,#070D24 55%,#050918 100%)}
+  radial-gradient(900px 700px at 88% -8%, rgba(240,186,40,.26), transparent 60%),
+  radial-gradient(900px 900px at -15% 110%, rgba(14,48,130,.9), transparent 62%),
+  linear-gradient(160deg,#0A2A7A 0%,#061E62 38%,#030E2C 100%)}
 .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 80%)}
 .noise{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .wrap{position:absolute;inset:0;padding:70px 76px;display:flex;flex-direction:column}
 .top{display:flex;justify-content:space-between;align-items:center}
 .logo{display:flex;align-items:center;gap:16px}
-.lw{font-family:'Poppins';font-weight:800;font-size:28px;letter-spacing:4px;color:var(--white)}
-.ls{font-size:15px;color:var(--muted);letter-spacing:1.5px;margin-top:-2px}
-.pill{border:2px solid rgba(255,200,61,.5);color:var(--gold);font-weight:700;font-size:24px;padding:10px 22px;border-radius:999px;letter-spacing:2px;background:rgba(255,200,61,.08)}
+.lw{font-family:'Montserrat';font-weight:900;font-size:30px;letter-spacing:3px;color:var(--white)}
+.ls{font-size:15px;font-weight:700;color:var(--gold2);letter-spacing:2px;margin-top:2px}
+.pill{border:2px solid rgba(240,186,40,.5);color:var(--gold);font-weight:700;font-size:24px;padding:10px 22px;border-radius:999px;letter-spacing:2px;background:rgba(240,186,40,.08)}
 .tag{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:24px;letter-spacing:3px;text-transform:uppercase;padding:12px 24px;border-radius:12px}
-.anton{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:1px;line-height:.95}
-.gold{color:var(--gold);text-shadow:0 0 40px rgba(255,200,61,.45)}
+.anton{font-family:'Bebas',sans-serif;text-transform:uppercase;letter-spacing:1.5px;line-height:.92}
+.gold{background:linear-gradient(180deg,#FFE7A3 0%,#F0BA28 55%,#C98E12 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(240,186,40,.4))}
 .red{color:var(--red);text-shadow:0 0 40px rgba(255,59,78,.5)}
-.mint{color:var(--mint);text-shadow:0 0 40px rgba(43,228,167,.45)}
-.body{font-size:38px;line-height:1.45;font-weight:500;color:#DCE1F5}
-.body b{color:var(--white);font-weight:700}
-.hl{background:linear-gradient(transparent 58%,rgba(255,200,61,.45) 58%);padding:0 4px;color:#fff;font-weight:700}
+.mint{color:var(--gold2);text-shadow:0 0 40px rgba(255,215,110,.4)}
+.body{font-size:38px;line-height:1.45;font-weight:600;color:#DDE4F8}
+.body b{color:var(--gold2);font-weight:800}
+.hl{background:linear-gradient(transparent 58%,rgba(240,186,40,.5) 58%);padding:0 4px;color:#fff;font-weight:800}
 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:20px;color:var(--muted)}
 .swipe{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--gold);font-size:24px;letter-spacing:3px}
 .swipe span{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:30px}
 .iconbox{width:190px;height:190px;border-radius:44px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.14);box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.2)}
 .glass{background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.13);border-radius:32px;box-shadow:0 30px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18)}
-.big{font-family:'Anton';line-height:.85;letter-spacing:-2px}
+.big{font-family:'Bebas';line-height:.85;letter-spacing:-2px}
 ${extraCss}
-</style></head><body><div class="bg"></div><div class="grid"></div><div class="noise"></div><div class="wrap">${body}</div></body></html>`;
+</style></head><body><div class="bg"></div><div class="grid"></div><div class="noise"></div><div style="position:absolute;left:0;right:0;top:0;height:10px;background:linear-gradient(90deg,#C98E12,#FFD76E,#F0BA28,#C98E12)"></div><div style="position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(90deg,#C98E12,#FFD76E,#F0BA28,#C98E12)"></div><div class="wrap">${body}</div></body></html>`;
 
 const SRC = 'IRDAI Master Circular on Health Insurance, 2024';
 
@@ -129,14 +126,14 @@ designs.push(['carousel-07-room-rent-trap', 1080, 1350, base(1080, 1350, `
 designs.push(['carousel-08-cta', 1080, 1350, base(1080, 1350, `
   <div class="top">${logo()}<div class="pill">08 / 08</div></div>
   <div class="anton" style="font-size:128px;margin-top:90px">Aapki policy<br>mein kya<br><span class="gold">likha hai?</span></div>
-  <div class="glass" style="margin-top:60px;padding:40px;display:flex;align-items:center;gap:34px;border-color:rgba(255,200,61,.5);box-shadow:0 0 0 6px rgba(255,200,61,.08),0 30px 80px rgba(0,0,0,.4)">
+  <div class="glass" style="margin-top:60px;padding:40px;display:flex;align-items:center;gap:34px;border-color:rgba(240,186,40,.5);box-shadow:0 0 0 6px rgba(240,186,40,.08),0 30px 80px rgba(0,0,0,.4)">
     ${icon('chat', 110)}
     <div><div style="font-size:30px;color:var(--muted);font-weight:600">Comment karo</div>
     <div class="anton gold" style="font-size:84px">"PATA NAHI"</div>
     <div style="font-size:30px;font-weight:700">→ FREE policy check 🔍</div></div>
   </div>
   <div class="body" style="margin-top:44px;font-size:34px">🔁 Us dost ko bhejo jiske <b>parents ki policy</b> hai</div>
-  <div class="foot" style="flex-direction:column;align-items:flex-start;gap:14px"><div style="font-size:30px;font-weight:800;color:#fff;letter-spacing:1px">@wealthtank.in</div><div style="font-size:18px">Source: ${SRC}. Awareness only; terms vary by policy. Not a solicitation.</div></div>`)]);
+  <div class="foot" style="flex-direction:column;align-items:flex-start;gap:14px"><div style="display:flex;align-items:center;gap:22px"><img src="${LOGO}" style="width:120px;height:120px"><div><div style="font-size:34px;font-weight:900;letter-spacing:2px">WEALTH TANK</div><div style="font-size:26px;font-weight:700;color:var(--gold2)">@wealthtank.in</div></div></div><div style="font-size:18px">Source: ${SRC}. Awareness only; terms vary by policy. Not a solicitation.</div></div>`)]);
 
 // Reel cover (4:5 feed & 9:16 cover)
 const coverBody = (tall) => `
@@ -144,13 +141,13 @@ const coverBody = (tall) => `
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
   <div class="glass" style="padding:40px 44px;transform:rotate(-2deg);position:relative;margin-top:${tall ? 0 : 30}px">
     <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:24px;font-weight:600;letter-spacing:2px"><span>🏥 HOSPITAL BILL</span><span>#IPD-2026</span></div>
-    <div class="anton" style="font-size:${tall ? 190 : 170}px;margin-top:10px">₹4 Lakh</div>
-    <div style="position:absolute;right:30px;bottom:-30px;transform:rotate(10deg);border:6px solid var(--red);color:var(--red);font-family:Anton;font-size:44px;padding:4px 20px;border-radius:12px;background:rgba(7,13,36,.85)">PARTIALLY PAID</div>
+    <div class="anton" style="font-size:${tall ? 250 : 215}px;margin-top:10px">₹4 Lakh</div>
+    <div style="position:absolute;right:30px;bottom:-30px;transform:rotate(10deg);border:6px solid var(--red);color:var(--red);font-family:Bebas;font-size:44px;padding:4px 20px;border-radius:12px;background:rgba(7,13,36,.85)">PARTIALLY PAID</div>
   </div>
   <div style="font-size:90px;text-align:center;margin:${tall ? 50 : 26}px 0;color:var(--gold);line-height:1">↓</div>
-  <div class="anton" style="font-size:${tall ? 120 : 100}px;text-align:center">Claim mila sirf <span style="font-size:.9em">😱</span></div>
-  <div class="anton red" style="font-size:${tall ? 215 : 210}px;text-align:center;margin-top:10px">₹2.5 Lakh</div>
-  <div style="text-align:center;margin-top:${tall ? 50 : 30}px"><span class="anton" style="font-size:${tall ? 70 : 60}px;background:var(--gold);color:var(--navy);padding:10px 30px 4px;border-radius:14px;display:inline-block;transform:rotate(-1.5deg);box-shadow:0 18px 50px rgba(255,200,61,.45)">Room Rent Trap</span></div>
+  <div class="anton" style="font-size:${tall ? 132 : 125}px;text-align:center;white-space:nowrap">Claim mila sirf <span style="font-size:.9em">😱</span></div>
+  <div class="anton red" style="font-size:${tall ? 262 : 255}px;text-align:center;margin-top:10px;white-space:nowrap">₹2.5 Lakh</div>
+  <div style="text-align:center;margin-top:${tall ? 50 : 30}px"><span class="anton" style="font-size:${tall ? 92 : 76}px;background:var(--gold);color:var(--navy);padding:10px 30px 4px;border-radius:14px;display:inline-block;transform:rotate(-1.5deg);box-shadow:0 18px 50px rgba(240,186,40,.45)">Room Rent Trap</span></div>
   </div>
   <div class="foot"><div>Illustrative example. Awareness only.</div><div style="font-weight:800;color:#fff;font-size:26px">@wealthtank.in</div></div>`;
 designs.push(['reel-cover-4x5', 1080, 1350, base(1080, 1350, coverBody(false))]);
@@ -158,7 +155,7 @@ designs.push(['reel-cover-9x16', 1080, 1920, base(1080, 1920, coverBody(true), '
 
 // Story poll
 designs.push(['story-poll', 1080, 1920, base(1080, 1920, `
-  <div class="top">${logo(1.1)}<span class="tag" style="background:rgba(255,200,61,.12);color:var(--gold);border:2px solid rgba(255,200,61,.5);font-size:22px">Quick Poll</span></div>
+  <div class="top">${logo(1.1)}<span class="tag" style="background:rgba(240,186,40,.12);color:var(--gold);border:2px solid rgba(240,186,40,.5);font-size:22px">Quick Poll</span></div>
   <div style="margin-top:140px;text-align:center">
     <div style="display:inline-block" class="iconbox">${icon('cross', 120, 'var(--red)')}</div>
     <div class="anton" style="font-size:118px;margin-top:60px">Aapki health<br>policy mein</div>
