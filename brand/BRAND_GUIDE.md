@@ -28,6 +28,7 @@ Navy and gold only. Red is reserved for danger/loss words ("NAHI", a lost amount
 - Headlines and big numbers: **Bebas Neue**, uppercase.
 - Labels, logo wordmark, buttons: **Montserrat 800/900**.
 - Body text: **Montserrat 600**; bold words in light gold.
+- Hindi / Sanskrit (Devanagari) text, e.g. festival mantras: **Tiro Devanagari Hindi** (`font-family:'Tiro'`), in light gold.
 
 ## Layout and effects
 - Sizes: feed / carousel 1080×1350 (4:5), reel cover and story 1080×1920 (9:16).

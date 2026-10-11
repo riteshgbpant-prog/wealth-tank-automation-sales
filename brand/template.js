@@ -6,7 +6,7 @@ const path = require('path');
 
 const DIR = __dirname;                                   // brand/
 const F = (fam, w, file) => `@font-face{font-family:'${fam}';font-weight:${w};src:url(file://${path.join(DIR, 'fonts', file)})}`;
-const fontCss = [600, 700, 800, 900].map(w => F('Montserrat', w, `Montserrat-${w}.ttf`)).join('') + F('Montserrat', 500, 'Montserrat-600.ttf') + F('Bebas', 400, 'BebasNeue.ttf');
+const fontCss = [600, 700, 800, 900].map(w => F('Montserrat', w, `Montserrat-${w}.ttf`)).join('') + F('Montserrat', 500, 'Montserrat-600.ttf') + F('Bebas', 400, 'BebasNeue.ttf') + F('Tiro', 400, 'TiroDevanagariHindi.woff');   // Tiro: Hindi / Sanskrit text
 const LOGO = 'file://' + path.join(DIR, 'assets', 'wealth-tank-badge.png');
 
 // ---------- icons (stroke line icons) ----------
